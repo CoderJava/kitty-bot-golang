@@ -24,14 +24,12 @@ func StartDailyScrum(request *resty.Request) {
 	// dan ubah menjadi struct scrum
 	templateScrumJson, err := os.ReadFile("assets/template_scrum.json")
 	if err != nil {
-		helper.PrintLog("gagal baca file template_scrum.json")
-		log.Fatal(err)
+		log.Fatal(err, helper.SprintLog("gagal baca file template_scrum.json"))
 	}
 	var templateMessageScrum scrum.TemplateMessageScrum
 	err = json.Unmarshal(templateScrumJson, &templateMessageScrum)
 	if err != nil {
-		helper.PrintLog("gagal parsing json string kedalam struct scrum")
-		log.Fatal(err)
+		log.Fatal(err, helper.SprintLog("gagal parsing json string kedalam struct template message scrum"))
 	}
 	listTemplateMessages := templateMessageScrum.Data
 
@@ -39,14 +37,12 @@ func StartDailyScrum(request *resty.Request) {
 	// dan ubah menjadi struct event
 	eventJson, err := os.ReadFile("assets/event_holiday.json")
 	if err != nil {
-		helper.PrintLog("gagal baca file event_holiday.json")
-		log.Fatal(err)
+		log.Fatal(err, helper.SprintLog("gagal baca file event_holiday.json"))
 	}
 	var listEvents event.Event
 	err = json.Unmarshal(eventJson, &listEvents)
 	if err != nil {
-		helper.PrintLog("gagal parsing json string kedalam struct event")
-		log.Fatal(err)
+		log.Fatal(err, helper.SprintLog("gagal parsing json string kedalam struct event"))
 	}
 
 	now := time.Now()
