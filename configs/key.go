@@ -1,5 +1,7 @@
 package configs
 
+// ======================
+// ENV KEY
 // app env
 var AppEnv = "APP_ENV"
 
@@ -41,3 +43,33 @@ var IdHubstaffAbdulAziz = "ID_HUBSTAFF_ABDUL_AZIZ"
 var BaseApiDiscord = "BASE_API_DISCORD"
 var BaseApiAuthHubstaff = "BASE_API_AUTH_HUBSTAFF"
 var BaseApiHubstaff = "BASE_API_HUBSTAFF"
+
+// ======================
+
+// ======================
+// CACHE KEY
+var AccessToken = "access_token"
+
+// ======================
+
+// ======================
+// STRING VALUE
+var NameAdeIskandar = "Ade Iskandar"
+var NameAldoFaizi = "Aldo Faizi"
+var NameAbdulAziz = "Abdul Aziz"
+var NameAdhityaBobby = "Bobby"
+var NameYudiSetiawan = "Yudi Setiawan"
+var NameDewiLilian = "Dewi Lilian"
+var NameRioDwiPrabowo = "Rio Dwi Prabowo"
+var NameSabrino = "Sabrino"
+var NameRyanAlfarisi = "Ryan Alfarisi"
+var NameTeguhDwiPutra = "Teguh Dwi Putra"
+var NameAditama = "Aditama"
+
+// ======================
+
+// ======================
+// ASSET PATH
+var TemplateMessageDailyScrum = "assets/template_scrum.json"
+var EventHoliday = "assets/event_holiday.json"
+// ======================
