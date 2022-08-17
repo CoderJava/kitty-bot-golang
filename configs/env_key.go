@@ -39,3 +39,5 @@ var IdHubstaffAbdulAziz = "ID_HUBSTAFF_ABDUL_AZIZ"
 
 // base api
 var BaseApiDiscord = "BASE_API_DISCORD"
+var BaseApiAuthHubstaff = "BASE_API_AUTH_HUBSTAFF"
+var BaseApiHubstaff = "BASE_API_HUBSTAFF"
