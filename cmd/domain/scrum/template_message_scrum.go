@@ -1,6 +1,6 @@
 package scrum
 
-type Scrum struct {
+type TemplateMessageScrum struct {
 	Data []ItemScrum `json:"data"`
 }
 
