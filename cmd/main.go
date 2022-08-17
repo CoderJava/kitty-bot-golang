@@ -25,5 +25,6 @@ func main() {
 	})
 
 	// start cron
+	helper.PrintLog("Running...")
 	s.StartBlocking()
 }
