@@ -3,6 +3,7 @@ module kitty-bot
 go 1.19
 
 require (
+	github.com/bluele/gcache v0.0.2 // indirect
 	github.com/go-co-op/gocron v1.16.2 // indirect
 	github.com/go-resty/resty/v2 v2.7.0 // indirect
 	github.com/joho/godotenv v1.4.0 // indirect
