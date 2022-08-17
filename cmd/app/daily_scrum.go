@@ -27,13 +27,13 @@ func StartDailyScrum(request *resty.Request) {
 		helper.PrintLog("gagal baca file template_scrum.json")
 		log.Fatal(err)
 	}
-	var scrumData scrum.Scrum
-	err = json.Unmarshal(templateScrumJson, &scrumData)
+	var templateMessageScrum scrum.TemplateMessageScrum
+	err = json.Unmarshal(templateScrumJson, &templateMessageScrum)
 	if err != nil {
 		helper.PrintLog("gagal parsing json string kedalam struct scrum")
 		log.Fatal(err)
 	}
-	listTemplateMessages := scrumData.Data
+	listTemplateMessages := templateMessageScrum.Data
 
 	// baca file event_holiday.json
 	// dan ubah menjadi struct event
