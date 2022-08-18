@@ -24,11 +24,13 @@ func StartDailyHubstaff(request *resty.Request, cacheHelper helper.CacheHelper) 
 	hubstaffRemoteDataSource := datasource.NewHubstaffRemoteDataSource(request, cacheHelper)
 	loginResponse := hubstaffRemoteDataSource.Login()
 	accessToken := loginResponse.AccessToken
-	if accessToken == "" {
+	refreshToken := loginResponse.RefreshToken
+	if accessToken == "" || refreshToken == "" {
 		helper.PrintLog("endpoint login hubstaff gagal")
 		return
 	}
 	cacheHelper.Set(configs.AccessToken, accessToken)
+	cacheHelper.Set(configs.RefreshToken, refreshToken)
 
 	// pastikan hari ini adalah hari kerja
 	now := time.Now()
