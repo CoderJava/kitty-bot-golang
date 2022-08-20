@@ -22,9 +22,9 @@ func StartDailyScrum(request *resty.Request) {
 
 	// baca file template_scrum.json
 	// dan ubah menjadi struct scrum
-	templateScrumJson, err := os.ReadFile("assets/template_scrum.json")
+	templateScrumJson, err := os.ReadFile(configs.TemplateMessageDailyScrum)
 	if err != nil {
-		log.Fatal(err, helper.SprintLog("gagal baca file template_scrum.json"))
+		log.Fatal(err, helper.SprintLog("gagal baca file template scrum"))
 	}
 	var templateMessageScrum scrum.TemplateMessageScrum
 	err = json.Unmarshal(templateScrumJson, &templateMessageScrum)
@@ -35,9 +35,9 @@ func StartDailyScrum(request *resty.Request) {
 
 	// baca file event_holiday.json
 	// dan ubah menjadi struct event
-	eventJson, err := os.ReadFile("assets/event_holiday.json")
+	eventJson, err := os.ReadFile(configs.EventHoliday)
 	if err != nil {
-		log.Fatal(err, helper.SprintLog("gagal baca file event_holiday.json"))
+		log.Fatal(err, helper.SprintLog("gagal baca file event holiday"))
 	}
 	var listEvents event.Event
 	err = json.Unmarshal(eventJson, &listEvents)
