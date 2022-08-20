@@ -8,6 +8,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/go-resty/resty/v2"
 	"github.com/joho/godotenv"
 )
 
@@ -138,4 +139,14 @@ func SliceIndex(limit int, predicate func(int) bool) int {
 		}
 	}
 	return -1
+}
+
+func AddMiddlewareHttpClientDiscordOnBeforeRequest(c *resty.Client, req *resty.Request) error {
+	baseApi := LoadEnvVariable(configs.BaseApiDiscord)
+	discordBotToken := LoadEnvVariable(configs.DiscordBotToken)
+
+	c.SetBaseURL(baseApi)
+	req.SetHeader("Content-Type", "application/json")
+	req.SetHeader("Authorization", fmt.Sprintf("Bot %s", discordBotToken))
+	return nil
 }

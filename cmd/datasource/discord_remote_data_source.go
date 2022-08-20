@@ -3,7 +3,6 @@ package datasource
 import (
 	"fmt"
 	"kitty-bot/cmd/domain/discord"
-	"kitty-bot/configs"
 	"kitty-bot/internal/helper"
 	"log"
 	"strings"
@@ -13,20 +12,15 @@ import (
 
 type discordRemoteDataSource struct {
 	request *resty.Request
-	baseApi string
 }
 
 func NewDiscordRemoteDataSource(request *resty.Request) *discordRemoteDataSource {
-	baseApi := helper.LoadEnvVariable(configs.BaseApiDiscord)
-	return &discordRemoteDataSource{request: request, baseApi: baseApi}
+	return &discordRemoteDataSource{request: request}
 }
 
 func (r *discordRemoteDataSource) SendMessageToChannel(idChannel string, body discord.DiscordCreateMessageBody) (result bool) {
-	path := r.baseApi + "channels/" + idChannel + "/messages"
-	discordBotToken := helper.LoadEnvVariable(configs.DiscordBotToken)
+	path := "channels/" + idChannel + "/messages"
 	response, err := r.request.
-		SetHeader("Content-Type", "application/json").
-		SetHeader("Authorization", fmt.Sprintf("Bot %s", discordBotToken)).
 		SetBody(body).
 		Post(path)
 	if err != nil {
