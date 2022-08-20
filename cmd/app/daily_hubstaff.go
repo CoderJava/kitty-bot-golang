@@ -50,9 +50,9 @@ func StartDailyHubstaff(request *resty.Request, cacheHelper helper.CacheHelper) 
 	}
 
 	// ambil data json event yang di asset
-	jsonEventHoliday, err := os.ReadFile("assets/event_holiday.json")
+	jsonEventHoliday, err := os.ReadFile(configs.EventHoliday)
 	if err != nil {
-		log.Fatal(err, helper.SprintLog("gagal baca file event_holiday.json"))
+		log.Fatal(err, helper.SprintLog("gagal baca file event holiday"))
 	}
 	var listEvents event.Event
 	err = json.Unmarshal(jsonEventHoliday, &listEvents)
@@ -98,17 +98,7 @@ func StartDailyHubstaff(request *resty.Request, cacheHelper helper.CacheHelper) 
 
 	// tentukan syarat total jam kerja
 	var requirementWorkingHourInSeconds int
-	switch strStartDay {
-	case "Mon", "Tue", "Wed", "Thu":
-		// 07:30
-		requirementWorkingHourInSeconds = (3600 * 7) + (60 * 30)
-	case "Fri":
-		// 06:30
-		requirementWorkingHourInSeconds = (3600 * 6) + (60 * 30)
-	case "Sat":
-		// 03:30
-		requirementWorkingHourInSeconds = (3600 * 3) + (60 * 30)
-	}
+	getRequirementWorkingHourInSeconds(strStartDay, &requirementWorkingHourInSeconds)
 	if requirementWorkingHourInSeconds == 0 {
 		helper.PrintLog("daily hubstaff requirement working hour is zero")
 		return
@@ -221,5 +211,19 @@ func StartDailyHubstaff(request *resty.Request, cacheHelper helper.CacheHelper) 
 		helper.PrintLog("daily hubstaff success")
 	} else {
 		helper.PrintLog("daily hubstaff failure")
+	}
+}
+
+func getRequirementWorkingHourInSeconds(strDay string, second *int) {
+	switch strDay {
+	case "Mon", "Tue", "Wed", "Thu":
+		// 07:30
+		*second = (3600 * 7) + (60 * 30)
+	case "Fri":
+		// 06:30
+		*second = (3600 * 6) + (60 * 30)
+	case "Sat":
+		// 03:30
+		*second = (3600 * 3) + (60 * 30)
 	}
 }
