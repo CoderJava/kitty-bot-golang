@@ -18,7 +18,7 @@ import (
 
 func StartDailyHubstaff(
 	requestHubstaff *resty.Request,
-	requestAuth *resty.Request,
+	requestHubstaffAuth *resty.Request,
 	requestDiscord *resty.Request,
 	cacheHelper helper.CacheHelper,
 ) {
@@ -26,7 +26,7 @@ func StartDailyHubstaff(
 	appEnv := helper.LoadEnvVariable(configs.AppEnv)
 
 	// hit ke endpoint login hubstaff dan simpan access tokennya didalam cache
-	hubstaffRemoteDataSource := datasource.NewHubstaffRemoteDataSource(requestHubstaff, requestAuth)
+	hubstaffRemoteDataSource := datasource.NewHubstaffRemoteDataSource(requestHubstaff, requestHubstaffAuth)
 	loginResponse := hubstaffRemoteDataSource.Login()
 	accessToken := loginResponse.AccessToken
 	refreshToken := loginResponse.RefreshToken
