@@ -16,12 +16,17 @@ import (
 	"github.com/go-resty/resty/v2"
 )
 
-func StartDailyHubstaff(request *resty.Request, cacheHelper helper.CacheHelper) {
+func StartDailyHubstaff(
+	requestHubstaff *resty.Request,
+	requestAuth *resty.Request,
+	requestDiscord *resty.Request,
+	cacheHelper helper.CacheHelper,
+) {
 	// baca APP_ENV
 	appEnv := helper.LoadEnvVariable(configs.AppEnv)
 
 	// hit ke endpoint login hubstaff dan simpan access tokennya didalam cache
-	hubstaffRemoteDataSource := datasource.NewHubstaffRemoteDataSource(request, cacheHelper)
+	hubstaffRemoteDataSource := datasource.NewHubstaffRemoteDataSource(requestHubstaff, requestAuth)
 	loginResponse := hubstaffRemoteDataSource.Login()
 	accessToken := loginResponse.AccessToken
 	refreshToken := loginResponse.RefreshToken
@@ -194,7 +199,7 @@ func StartDailyHubstaff(request *resty.Request, cacheHelper helper.CacheHelper) 
 		helper.PrintLog(fmt.Sprintf("content: %s", content))
 	}
 
-	discordRemoteDataSource := datasource.NewDiscordRemoteDataSource(request)
+	discordRemoteDataSource := datasource.NewDiscordRemoteDataSource(requestDiscord)
 	var idChannel string
 	if appEnv == "development" {
 		idChannel = helper.LoadEnvVariable(configs.IdChannelDiscordDevelopment)
