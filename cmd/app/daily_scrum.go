@@ -16,7 +16,7 @@ import (
 	"github.com/go-resty/resty/v2"
 )
 
-func StartDailyScrum(request *resty.Request) {
+func StartDailyScrum(requestDiscord *resty.Request) {
 	// baca APP_ENV dari environment variable
 	appEnv := helper.LoadEnvVariable(configs.AppEnv)
 
@@ -94,7 +94,7 @@ func StartDailyScrum(request *resty.Request) {
 			},
 		},
 	}
-	discordRemoteDataSource := datasource.NewDiscordRemoteDataSource(request)
+	discordRemoteDataSource := datasource.NewDiscordRemoteDataSource(requestDiscord)
 	var idChannelDiscord string
 	if appEnv == "development" {
 		idChannelDiscord = helper.LoadEnvVariable(configs.IdChannelDiscordDevelopment)
