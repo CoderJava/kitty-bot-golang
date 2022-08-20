@@ -2,6 +2,7 @@ package main
 
 import (
 	"kitty-bot/cmd/app"
+	"kitty-bot/configs"
 	"kitty-bot/internal/helper"
 	"time"
 
@@ -10,18 +11,43 @@ import (
 )
 
 func main() {
+	appEnv := helper.LoadEnvVariable(configs.AppEnv)
 	s := gocron.NewScheduler(time.Local)
-	request := resty.New().R()
 	cacheHelper := helper.NewCacheHelper()
+	mh := helper.NewMiddlewareHelper(*cacheHelper)
+
+	httpClientDiscord := resty.New()
+	httpClientDiscord.OnBeforeRequest(mh.OnBeforeRequestDiscord)
+
+	httpClientHubstaffAuth := resty.New()
+	httpClientHubstaffAuth.OnBeforeRequest(mh.OnBeforeRequestHubstaffAuth)
+
+	httpClientHubstaff := resty.New()
+	httpClientHubstaff.OnBeforeRequest(mh.OnBeforeRequestHubstaff)
+
+	if appEnv == "development" {
+		httpClientDiscord.SetDebug(true)
+		httpClientHubstaffAuth.SetDebug(true)
+		httpClientHubstaff.SetDebug(true)
+	}
+
+	requestHubstaffAuth := httpClientHubstaffAuth.R()
+	requestDiscord := httpClientDiscord.R()
+	requestHubstaff := httpClientHubstaff.R()
 
 	// daily reminder scrum
 	s.Every(1).Day().At("16:28").Do(func() {
-		app.StartDailyScrum(request)
+		app.StartDailyScrum(requestDiscord)
 	})
 
 	// daily hubstaff
 	s.Every(1).Day().At("09:30").Do(func() {
-		app.StartDailyHubstaff(request, *cacheHelper)
+		app.StartDailyHubstaff(
+			requestHubstaff,
+			requestHubstaffAuth,
+			requestDiscord,
+			*cacheHelper,
+		)
 	})
 
 	// start cron
