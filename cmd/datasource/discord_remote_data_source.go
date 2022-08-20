@@ -11,16 +11,16 @@ import (
 )
 
 type discordRemoteDataSource struct {
-	request *resty.Request
+	requestDiscord *resty.Request
 }
 
-func NewDiscordRemoteDataSource(request *resty.Request) *discordRemoteDataSource {
-	return &discordRemoteDataSource{request: request}
+func NewDiscordRemoteDataSource(requestDiscord *resty.Request) *discordRemoteDataSource {
+	return &discordRemoteDataSource{requestDiscord: requestDiscord}
 }
 
 func (r *discordRemoteDataSource) SendMessageToChannel(idChannel string, body discord.DiscordCreateMessageBody) (result bool) {
 	path := "channels/" + idChannel + "/messages"
-	response, err := r.request.
+	response, err := r.requestDiscord.
 		SetBody(body).
 		Post(path)
 	if err != nil {
