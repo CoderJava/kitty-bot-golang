@@ -44,35 +44,6 @@ func LoadEnvVariable(key string) string {
 	return os.Getenv(key)
 }
 
-// Untuk mendapatkan id discord user berdasarkan id hubstaff-nya
-func GetIdDiscordByIdHubstaff(userIdHubstaff string) (idDiscord string) {
-	var keyIdDiscord string
-	switch userIdHubstaff {
-	case LoadEnvVariable(configs.IdHubstaffYudiSetiawan):
-		keyIdDiscord = configs.IdDiscordYudiSetiawan
-	case LoadEnvVariable(configs.IdHubstaffRyan):
-		keyIdDiscord = configs.IdDiscordRyan
-	case LoadEnvVariable(configs.IdHubstaffSabrino):
-		keyIdDiscord = configs.IdDiscordSabrino
-	case LoadEnvVariable(configs.IdHubstaffRioDwi):
-		keyIdDiscord = configs.IdDiscordRioDwi
-	case LoadEnvVariable(configs.IdHubstaffBobby):
-		keyIdDiscord = configs.IdDiscordBobby
-	case LoadEnvVariable(configs.IdHubstaffAditama):
-		keyIdDiscord = configs.IdDiscordAditama
-	case LoadEnvVariable(configs.IdHubstaffAldoFaiz):
-		keyIdDiscord = configs.IdDiscordAldoFaizi
-	case LoadEnvVariable(configs.IdHubstaffDewi):
-		keyIdDiscord = configs.IdDiscordDewi
-	case LoadEnvVariable(configs.IdHubstaffAbdulAziz):
-		keyIdDiscord = configs.IdDiscordAbdulAziz
-	}
-	if keyIdDiscord != "" {
-		idDiscord = LoadEnvVariable(keyIdDiscord)
-	}
-	return
-}
-
 // Untuk konversi detik menjadi HH:mm:ss
 func ConvertSecondToFormatHourMinuteSecond(second int) string {
 	var hour int
@@ -91,27 +62,39 @@ func ConvertSecondToFormatHourMinuteSecond(second int) string {
 	return fmt.Sprintf("%s:%s:%s", strHour, strMinute, strSecond)
 }
 
-// Untuk dapatkan nama lengkap user berdasarkan id hubstaff-nya
-func GetNameByIdHubstaff(idHubstaff string) (name string) {
+func GetNameAndIdDiscordByIdHubstaff(idHubstaff string) (name string, idDiscord string) {
+	var keyIdDiscord string
 	switch idHubstaff {
 	case LoadEnvVariable(configs.IdHubstaffYudiSetiawan):
+		keyIdDiscord = configs.IdDiscordYudiSetiawan
 		name = configs.NameYudiSetiawan
 	case LoadEnvVariable(configs.IdHubstaffRyan):
+		keyIdDiscord = configs.IdDiscordRyan
 		name = configs.NameRyanAlfarisi
 	case LoadEnvVariable(configs.IdHubstaffSabrino):
+		keyIdDiscord = configs.IdDiscordSabrino
 		name = configs.NameSabrino
 	case LoadEnvVariable(configs.IdHubstaffRioDwi):
+		keyIdDiscord = configs.IdDiscordRioDwi
 		name = configs.NameRioDwiPrabowo
 	case LoadEnvVariable(configs.IdHubstaffBobby):
+		keyIdDiscord = configs.IdDiscordBobby
 		name = configs.NameAdhityaBobby
 	case LoadEnvVariable(configs.IdHubstaffAditama):
+		keyIdDiscord = configs.IdDiscordAditama
 		name = configs.NameAditama
 	case LoadEnvVariable(configs.IdHubstaffAldoFaiz):
+		keyIdDiscord = configs.IdDiscordAldoFaizi
 		name = configs.NameAldoFaizi
 	case LoadEnvVariable(configs.IdHubstaffDewi):
+		keyIdDiscord = configs.IdDiscordDewi
 		name = configs.NameDewiLilian
 	case LoadEnvVariable(configs.IdHubstaffAbdulAziz):
+		keyIdDiscord = configs.IdDiscordAbdulAziz
 		name = configs.NameAbdulAziz
+	}
+	if keyIdDiscord != "" {
+		idDiscord = LoadEnvVariable(keyIdDiscord)
 	}
 	return
 }
