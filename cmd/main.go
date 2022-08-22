@@ -50,6 +50,16 @@ func main() {
 		)
 	})
 
+	// monthly hubstaff at 10:30 on day of month 27
+	s.Cron("30 10 27 * *").Do(func() {
+		app.StartMonthlyHubstaff(
+			requestHubstaff,
+			requestHubstaffAuth,
+			requestDiscord,
+			*cacheHelper,
+		)
+	})
+
 	// start cron
 	helper.PrintLog("Running...")
 	s.StartBlocking()
