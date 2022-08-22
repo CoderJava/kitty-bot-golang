@@ -28,14 +28,12 @@ func StartDailyHubstaff(
 	// hit ke endpoint login hubstaff dan simpan access tokennya didalam cache
 	hubstaffRemoteDataSource := datasource.NewHubstaffRemoteDataSource(requestHubstaff, requestHubstaffAuth)
 	loginResponse := hubstaffRemoteDataSource.Login()
-	accessToken := loginResponse.AccessToken
-	refreshToken := loginResponse.RefreshToken
-	if accessToken == "" || refreshToken == "" {
+	if (hubstaff.LoginResponse{}) == loginResponse {
 		helper.PrintLog("endpoint login hubstaff gagal")
 		return
 	}
-	cacheHelper.Set(configs.AccessToken, accessToken)
-	cacheHelper.Set(configs.RefreshToken, refreshToken)
+	cacheHelper.Set(configs.AccessToken, loginResponse.AccessToken)
+	cacheHelper.Set(configs.RefreshToken, loginResponse.RefreshToken)
 
 	// pastikan hari ini adalah hari kerja
 	now := time.Now()
@@ -93,14 +91,6 @@ func StartDailyHubstaff(
 		}
 	}
 
-	// cek apakah ada user di hubstaff
-	memberResponse := hubstaffRemoteDataSource.GetListMembers()
-	listMembers := memberResponse.Members
-	if len(listMembers) == 0 {
-		helper.PrintLog("daily hubstaff member kosong")
-		return
-	}
-
 	// tentukan syarat total jam kerja
 	var requirementWorkingHourInSeconds int
 	getRequirementWorkingHourInSeconds(strStartDay, &requirementWorkingHourInSeconds)
@@ -109,7 +99,7 @@ func StartDailyHubstaff(
 		return
 	}
 
-	dailyActivityResponse := hubstaffRemoteDataSource.GetDailyActivityByRangeDate(strStartDate, strStopDate)
+	dailyActivityResponse := hubstaffRemoteDataSource.GetDailyActivityByRangeDate(strStartDate, strStopDate, 0)
 	listMessages := []hubstaff.TemplateMessageHubstaff{}
 	for _, itemDailyActivityResponse := range dailyActivityResponse.DailyActivities {
 		userIdHubstaff := fmt.Sprint(itemDailyActivityResponse.UserId)
@@ -123,12 +113,10 @@ func StartDailyHubstaff(
 		idleInSeconds := itemDailyActivityResponse.IdleInSeconds
 
 		// jika id discord-nya tidak valid
-		idDiscord := helper.GetIdDiscordByIdHubstaff(userIdHubstaff)
+		idDiscord, name := helper.GetNameAndIdDiscordByIdHubstaff(userIdHubstaff)
 		if idDiscord == "" {
 			continue
 		}
-
-		name := helper.GetNameByIdHubstaff(userIdHubstaff)
 
 		listAlready := helper.FilterTemplateMessageHubstaff(listMessages, func(index int) bool {
 			return listMessages[index].IdHubstaff == userIdHubstaff
@@ -174,10 +162,10 @@ func StartDailyHubstaff(
 
 	strDate := startDate.Format("02-01-2006")
 	strRequirementWorkingHour := helper.ConvertSecondToFormatHourMinuteSecond(requirementWorkingHourInSeconds)
-	content := "@everyone Ladies and gentleman..."
+	content := "@everyone Ladies and gentlemen..."
 	content += "\n:trophy: Welcome to the HubStaff Championship :trophy:"
 	content += fmt.Sprintf(
-		"\n\nBerikut adalah para pemain yang kalah pada tanggal **%s** dengan syarat jam HubStaff-nya **%s**.",
+		"\n\nBerikut adalah para peserta yang kalah pada tanggal **%s** dengan syarat jam HubStaff-nya **%s**.",
 		strDate,
 		strRequirementWorkingHour,
 	)
