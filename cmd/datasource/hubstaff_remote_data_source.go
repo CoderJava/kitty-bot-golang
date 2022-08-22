@@ -4,6 +4,7 @@ import (
 	"kitty-bot/cmd/domain/hubstaff"
 	"kitty-bot/internal/helper"
 	"log"
+	"strconv"
 
 	"github.com/go-resty/resty/v2"
 )
@@ -48,11 +49,16 @@ func (r hubstaffRemoteDataSource) GetListMembers() (membeResponse hubstaff.Membe
 func (r hubstaffRemoteDataSource) GetDailyActivityByRangeDate(
 	startDate string,
 	stopDate string,
+	pageStartId int,
 ) (dailyActivityResponse hubstaff.DailyActivityResponse) {
 	path := "organizations/166190/activities/daily"
-	_, err := r.requestHubstaff.
+	r.requestHubstaff.
 		SetQueryParam("date[start]", startDate).
-		SetQueryParam("date[stop]", stopDate).
+		SetQueryParam("date[stop]", stopDate)
+	if pageStartId != 0 {
+		r.requestHubstaff.SetQueryParam("page_start_id", strconv.Itoa(pageStartId))
+	}
+	_, err := r.requestHubstaff.
 		SetResult(&dailyActivityResponse).
 		Get(path)
 	if err != nil {
