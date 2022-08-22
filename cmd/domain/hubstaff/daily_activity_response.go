@@ -2,6 +2,7 @@ package hubstaff
 
 type DailyActivityResponse struct {
 	DailyActivities []ItemDailyActivityResponse `json:"daily_activities"`
+	Pagination PaginationDailyActivityResponse `json:"pagination"`
 }
 
 type ItemDailyActivityResponse struct {
@@ -10,4 +11,8 @@ type ItemDailyActivityResponse struct {
 	Overall               int    `json:"overall"`
 	InputTrackedInSeconds int    `json:"input_tracked"`
 	IdleInSeconds         int    `json:"idle"`
+}
+
+type PaginationDailyActivityResponse struct {
+	NextPageStartId int `json:"next_page_start_id"`
 }
