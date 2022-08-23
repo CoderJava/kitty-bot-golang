@@ -113,7 +113,7 @@ func StartDailyHubstaff(
 		idleInSeconds := itemDailyActivityResponse.IdleInSeconds
 
 		// jika id discord-nya tidak valid
-		idDiscord, name := helper.GetNameAndIdDiscordByIdHubstaff(userIdHubstaff)
+		name, idDiscord := helper.GetNameAndIdDiscordByIdHubstaff(userIdHubstaff)
 		if idDiscord == "" {
 			continue
 		}
@@ -173,9 +173,6 @@ func StartDailyHubstaff(
 
 	for index, itemMessage := range listMessages {
 		content += fmt.Sprintf("%d. <@%s>", index+1, itemMessage.IdDiscord)
-		if appEnv == "development" {
-			content += fmt.Sprintf("Nama\t** ** : **%s**", itemMessage.Name)
-		}
 		content += fmt.Sprintf("\nTotal\t: **%s**", helper.ConvertSecondToFormatHourMinuteSecond(itemMessage.Tracked))
 		content += fmt.Sprintf("\nIdle\t** ** : **%s**", helper.ConvertSecondToFormatHourMinuteSecond(itemMessage.Idle))
 		if index != len(listMessages)-1 {
