@@ -11,6 +11,7 @@ import (
 	"kitty-bot/internal/helper"
 	"log"
 	"os"
+	"sort"
 	"time"
 
 	"github.com/go-resty/resty/v2"
@@ -158,6 +159,11 @@ func StartDailyHubstaff(
 	listMessages = helper.FilterTemplateMessageHubstaff(listMessages, func(index int) bool {
 		element := listMessages[index]
 		return element.Tracked < requirementWorkingHourInSeconds
+	})
+
+	// sort dari yang paling besar ke terkecil jam hubstaff-nya
+	sort.Slice(listMessages, func(i, j int) bool {
+		return listMessages[i].Tracked > listMessages[j].Tracked
 	})
 
 	strDate := startDate.Format("02-01-2006")
