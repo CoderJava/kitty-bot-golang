@@ -26,6 +26,7 @@ var IdDiscordRioDwi = "ID_DISCORD_RIO_DWI_PRABOWO"
 var IdDiscordSabrino = "ID_DISCORD_SABRINO"
 var IdDiscordRyan = "ID_DISCORD_RYAN_ALFARISI"
 var IdDiscordAditama = "ID_DISCORD_ADITAMA"
+var IdDiscordRianto = "ID_DISCORD_RIANTO"
 
 // list id hubstaff user
 var IdHubstaffAdeIskandar = "ID_HUBSTAFF_ADE_ISKANDAR"
@@ -38,6 +39,7 @@ var IdHubstaffAditama = "ID_HUBSTAFF_ADITAMA"
 var IdHubstaffAldoFaiz = "ID_HUBSTAFF_ALDO_FAIZI"
 var IdHubstaffDewi = "ID_HUBSTAFF_DEWI_LILIAN"
 var IdHubstaffAbdulAziz = "ID_HUBSTAFF_ABDUL_AZIZ"
+var IdHubstaffRianto = "ID_HUBSTAFF_RIANTO"
 
 // base api
 var BaseApiDiscord = "BASE_API_DISCORD"
@@ -65,6 +67,7 @@ var NameSabrino = "Sabrino"
 var NameRyanAlfarisi = "Ryan Alfarisi"
 var NameTeguhDwiPutra = "Teguh Dwi Putra"
 var NameAditama = "Aditama"
+var NameRianto = "Rianto"
 
 // ======================
 
@@ -72,4 +75,5 @@ var NameAditama = "Aditama"
 // ASSET PATH
 var TemplateMessageDailyScrum = "assets/template_scrum.json"
 var EventHoliday = "assets/event_holiday.json"
+
 // ======================

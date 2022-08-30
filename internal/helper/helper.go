@@ -92,6 +92,9 @@ func GetNameAndIdDiscordByIdHubstaff(idHubstaff string) (name string, idDiscord 
 	case LoadEnvVariable(configs.IdHubstaffAbdulAziz):
 		keyIdDiscord = configs.IdDiscordAbdulAziz
 		name = configs.NameAbdulAziz
+	case LoadEnvVariable(configs.IdHubstaffRianto):
+		keyIdDiscord = configs.IdDiscordRianto
+		name = configs.NameRianto
 	}
 	if keyIdDiscord != "" {
 		idDiscord = LoadEnvVariable(keyIdDiscord)
