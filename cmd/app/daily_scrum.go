@@ -16,7 +16,7 @@ import (
 	"github.com/go-resty/resty/v2"
 )
 
-func StartDailyScrum(requestDiscord *resty.Request) {
+func StartDailyScrum(requestDiscord *resty.Request, listDaysScrum []string) {
 	// baca APP_ENV dari environment variable
 	appEnv := helper.LoadEnvVariable(configs.AppEnv)
 
@@ -48,13 +48,6 @@ func StartDailyScrum(requestDiscord *resty.Request) {
 	now := time.Now()
 	formattedDay := now.Format("Mon")
 	formattedDate := now.Format("2006-01-02")
-	listDaysScrum := []string{
-		"Mon",
-		"Tue",
-		"Wed",
-		"Thu",
-		"Fri",
-	}
 
 	// cek apakah hari ini ada jadwal daily scrum
 	isDailyScrum := helper.ContainString(listDaysScrum, formattedDay)
