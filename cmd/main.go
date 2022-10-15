@@ -35,9 +35,20 @@ func main() {
 	requestDiscord := httpClientDiscord.R()
 	requestHubstaff := httpClientHubstaff.R()
 
-	// daily reminder scrum
+	// daily reminder scrum at weekday
 	s.Every(1).Day().At("16:28").Do(func() {
-		app.StartDailyScrum(requestDiscord)
+		app.StartDailyScrum(
+			requestDiscord,
+			[]string{"Mon", "Tue", "Wed", "Thu", "Fri"},
+		)
+	})
+
+	// daily reminder scrum at saturday
+	s.Every(1).Week().Saturday().At("11:28").Do(func() {
+		app.StartDailyScrum(
+			requestDiscord,
+			[]string{"Sat"},
+		)
 	})
 
 	// daily hubstaff
