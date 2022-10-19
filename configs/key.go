@@ -27,6 +27,7 @@ var IdDiscordSabrino = "ID_DISCORD_SABRINO"
 var IdDiscordRyan = "ID_DISCORD_RYAN_ALFARISI"
 var IdDiscordAditama = "ID_DISCORD_ADITAMA"
 var IdDiscordRianto = "ID_DISCORD_RIANTO"
+var IdDiscordAbdi = "ID_DISCORD_ABDI"
 
 // list id hubstaff user
 var IdHubstaffAdeIskandar = "ID_HUBSTAFF_ADE_ISKANDAR"
@@ -40,6 +41,7 @@ var IdHubstaffAldoFaiz = "ID_HUBSTAFF_ALDO_FAIZI"
 var IdHubstaffDewi = "ID_HUBSTAFF_DEWI_LILIAN"
 var IdHubstaffAbdulAziz = "ID_HUBSTAFF_ABDUL_AZIZ"
 var IdHubstaffRianto = "ID_HUBSTAFF_RIANTO"
+var IdHubstaffAbdi = "ID_HUBSTAFF_ABDI"
 
 // base api
 var BaseApiDiscord = "BASE_API_DISCORD"
@@ -68,6 +70,7 @@ var NameRyanAlfarisi = "Ryan Alfarisi"
 var NameTeguhDwiPutra = "Teguh Dwi Putra"
 var NameAditama = "Aditama"
 var NameRianto = "Rianto"
+var NameAbdi = "Muhammad Abdi"
 
 // ======================
 
