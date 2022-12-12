@@ -63,14 +63,14 @@ func StartMonthlyHubstaff(
 	}
 
 	listMessages := []hubstaff.TemplateMessageHubstaff{}
-	userIdHubstaffAdeIskandar := helper.LoadEnvVariable(configs.IdHubstaffAdeIskandar)
+	userIdHubstaffAdeIskandar := helper.LoadEnvVariable(configs.IdCattrAdeIskandar)
 	for _, itemDailyActivityResponse := range dailyActivities {
 		userIdHubstaff := fmt.Sprint(itemDailyActivityResponse.UserId)
 		if userIdHubstaff == userIdHubstaffAdeIskandar {
 			continue
 		}
 
-		name, idDiscord := helper.GetNameAndIdDiscordByIdHubstaff(userIdHubstaff)
+		name, idDiscord := helper.GetNameAndIdDiscordByIdCattr(userIdHubstaff)
 
 		// abaikan datanya jika id discord user-nya tidak valid
 		if idDiscord == "" {
