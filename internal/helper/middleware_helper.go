@@ -48,3 +48,15 @@ func (mh middlewareHelper) OnBeforeRequestHubstaff(c *resty.Client, req *resty.R
 	req.SetHeader("Authorization", "Bearer "+accessToken)
 	return nil
 }
+
+func (mh middlewareHelper) OnBeforeRequestCattr(c *resty.Client, req *resty.Request) error {
+	baseApi := LoadEnvVariable(configs.BaseApiCattr)
+	accessToken := mh.cacheHelper.Get(configs.AccessToken)
+
+	c.SetBaseURL(baseApi)
+	req.SetHeader("Content-Type", "application/json")
+	if accessToken != "" {
+		req.SetHeader("Authorization", "Bearer "+accessToken)
+	}
+	return nil
+}

@@ -25,6 +25,9 @@ func main() {
 	httpClientHubstaff := resty.New()
 	httpClientHubstaff.OnBeforeRequest(mh.OnBeforeRequestHubstaff)
 
+	httpClientCattr := resty.New()
+	httpClientCattr.OnBeforeRequest(mh.OnBeforeRequestCattr)
+
 	if appEnv == "development" {
 		httpClientDiscord.SetDebug(true)
 		httpClientHubstaffAuth.SetDebug(true)
@@ -34,6 +37,7 @@ func main() {
 	requestHubstaffAuth := httpClientHubstaffAuth.R()
 	requestDiscord := httpClientDiscord.R()
 	requestHubstaff := httpClientHubstaff.R()
+	requestCattr := httpClientCattr.R()
 
 	// daily reminder scrum at weekday
 	s.Every(1).Day().At("16:28").Do(func() {
@@ -51,11 +55,10 @@ func main() {
 		)
 	})
 
-	// daily hubstaff
+	// daily cattr at 09:30 on every day
 	s.Every(1).Day().At("09:30").Do(func() {
-		app.StartDailyHubstaff(
-			requestHubstaff,
-			requestHubstaffAuth,
+		app.StartDailyCattr(
+			requestCattr,
 			requestDiscord,
 			*cacheHelper,
 		)
