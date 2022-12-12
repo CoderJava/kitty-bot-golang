@@ -2,6 +2,7 @@ package helper
 
 import (
 	"fmt"
+	"kitty-bot/cmd/domain/cattr"
 	"kitty-bot/cmd/domain/hubstaff"
 	"kitty-bot/configs"
 	"log"
@@ -19,6 +20,21 @@ func ContainString(values []string, search string) bool {
 		}
 	}
 	return false
+}
+
+// Untuk menentukan syarat jam kerja
+func GetRequirementWorkingHourInSeconds(strDay string, second *int) {
+	switch strDay {
+	case "Mon", "Tue", "Wed", "Thu":
+		// 07:30
+		*second = (3600 * 7) + (60 * 30)
+	case "Fri":
+		// 06:30
+		*second = (3600 * 6) + (60 * 30)
+	case "Sat":
+		// 03:30
+		*second = (3600 * 3) + (60 * 30)
+	}
 }
 
 // Untuk mencetak nilai message ke console dengan tambahan info "2006-01-02 15:04:05"
@@ -62,40 +78,40 @@ func ConvertSecondToFormatHourMinuteSecond(second int) string {
 	return fmt.Sprintf("%s:%s:%s", strHour, strMinute, strSecond)
 }
 
-func GetNameAndIdDiscordByIdHubstaff(idHubstaff string) (name string, idDiscord string) {
+func GetNameAndIdDiscordByIdCattr(idCattr string) (name string, idDiscord string) {
 	var keyIdDiscord string
-	switch idHubstaff {
-	case LoadEnvVariable(configs.IdHubstaffYudiSetiawan):
+	switch idCattr {
+	case LoadEnvVariable(configs.IdCattrYudiSetiawan):
 		keyIdDiscord = configs.IdDiscordYudiSetiawan
 		name = configs.NameYudiSetiawan
-	case LoadEnvVariable(configs.IdHubstaffRyan):
+	case LoadEnvVariable(configs.IdCattrRyan):
 		keyIdDiscord = configs.IdDiscordRyan
 		name = configs.NameRyanAlfarisi
-	case LoadEnvVariable(configs.IdHubstaffSabrino):
+	case LoadEnvVariable(configs.IdCattrSabrino):
 		keyIdDiscord = configs.IdDiscordSabrino
 		name = configs.NameSabrino
-	case LoadEnvVariable(configs.IdHubstaffRioDwi):
+	case LoadEnvVariable(configs.IdCattrRioDwi):
 		keyIdDiscord = configs.IdDiscordRioDwi
 		name = configs.NameRioDwiPrabowo
-	case LoadEnvVariable(configs.IdHubstaffBobby):
+	case LoadEnvVariable(configs.IdCattrBobby):
 		keyIdDiscord = configs.IdDiscordBobby
 		name = configs.NameAdhityaBobby
-	case LoadEnvVariable(configs.IdHubstaffAditama):
+	case LoadEnvVariable(configs.IdCattrAditama):
 		keyIdDiscord = configs.IdDiscordAditama
 		name = configs.NameAditama
-	case LoadEnvVariable(configs.IdHubstaffAldoFaiz):
+	case LoadEnvVariable(configs.IdCattrAldoFaiz):
 		keyIdDiscord = configs.IdDiscordAldoFaizi
 		name = configs.NameAldoFaizi
-	case LoadEnvVariable(configs.IdHubstaffDewi):
+	case LoadEnvVariable(configs.IdCattrDewi):
 		keyIdDiscord = configs.IdDiscordDewi
 		name = configs.NameDewiLilian
-	case LoadEnvVariable(configs.IdHubstaffAbdulAziz):
+	case LoadEnvVariable(configs.IdCattrAbdulAziz):
 		keyIdDiscord = configs.IdDiscordAbdulAziz
 		name = configs.NameAbdulAziz
-	case LoadEnvVariable(configs.IdHubstaffRianto):
+	case LoadEnvVariable(configs.IdCattrRianto):
 		keyIdDiscord = configs.IdDiscordRianto
 		name = configs.NameRianto
-	case LoadEnvVariable(configs.IdHubstaffAbdi):
+	case LoadEnvVariable(configs.IdCattrAbdi):
 		keyIdDiscord = configs.IdDiscordAbdi
 		name = configs.NameAbdi
 	}
@@ -105,11 +121,25 @@ func GetNameAndIdDiscordByIdHubstaff(idHubstaff string) (name string, idDiscord 
 	return
 }
 
+// TODO: Hapus function berikut ini jika semuanya telah diganti dengan cattr
 // Untuk mem-filter slice x yang terpenuhi berdasarkan kriteria parameter isFiltered
 func FilterTemplateMessageHubstaff(
 	x []hubstaff.TemplateMessageHubstaff,
 	isFiltered func(int) bool,
 ) (resultFilter []hubstaff.TemplateMessageHubstaff) {
+	for index, element := range x {
+		if isFiltered(index) {
+			resultFilter = append(resultFilter, element)
+		}
+	}
+	return
+}
+
+// Untuk mem-filter slice x yang terpenuhi berdasarkan kriteria parameter isFiltered
+func FilterTemplateMessageCattr(
+	x []cattr.TemplateMessageCattr,
+	isFiltered func(int) bool,
+) (resultFilter []cattr.TemplateMessageCattr) {
 	for index, element := range x {
 		if isFiltered(index) {
 			resultFilter = append(resultFilter, element)
