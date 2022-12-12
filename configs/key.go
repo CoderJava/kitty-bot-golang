@@ -29,24 +29,25 @@ var IdDiscordAditama = "ID_DISCORD_ADITAMA"
 var IdDiscordRianto = "ID_DISCORD_RIANTO"
 var IdDiscordAbdi = "ID_DISCORD_ABDI"
 
-// list id hubstaff user
-var IdHubstaffAdeIskandar = "ID_HUBSTAFF_ADE_ISKANDAR"
-var IdHubstaffYudiSetiawan = "ID_HUBSTAFF_YUDI_SETIAWAN"
-var IdHubstaffRyan = "ID_HUBSTAFF_RYAN_ALFARISI"
-var IdHubstaffSabrino = "ID_HUBSTAFF_SABRINO"
-var IdHubstaffRioDwi = "ID_HUBSTAFF_RIO_DWI_PRABOWO"
-var IdHubstaffBobby = "ID_HUBSTAFF_ADHITYA_BOBBY"
-var IdHubstaffAditama = "ID_HUBSTAFF_ADITAMA"
-var IdHubstaffAldoFaiz = "ID_HUBSTAFF_ALDO_FAIZI"
-var IdHubstaffDewi = "ID_HUBSTAFF_DEWI_LILIAN"
-var IdHubstaffAbdulAziz = "ID_HUBSTAFF_ABDUL_AZIZ"
-var IdHubstaffRianto = "ID_HUBSTAFF_RIANTO"
-var IdHubstaffAbdi = "ID_HUBSTAFF_ABDI"
+// list id cattr user
+var IdCattrAdeIskandar = "ID_CATTR_ADE_ISKANDAR"
+var IdCattrYudiSetiawan = "ID_CATTR_YUDI_SETIAWAN"
+var IdCattrRyan = "ID_CATTR_RYAN_ALFARISI"
+var IdCattrSabrino = "ID_CATTR_SABRINO"
+var IdCattrRioDwi = "ID_CATTR_RIO_DWI_PRABOWO"
+var IdCattrBobby = "ID_CATTR_ADHITYA_BOBBY"
+var IdCattrAditama = "ID_CATTR_ADITAMA"
+var IdCattrAldoFaiz = "ID_CATTR_ALDO_FAIZI"
+var IdCattrDewi = "ID_CATTR_DEWI_LILIAN"
+var IdCattrAbdulAziz = "ID_CATTR_ABDUL_AZIZ"
+var IdCattrRianto = "ID_CATTR_RIANTO"
+var IdCattrAbdi = "ID_CATTR_ABDI"
 
 // base api
 var BaseApiDiscord = "BASE_API_DISCORD"
 var BaseApiAuthHubstaff = "BASE_API_AUTH_HUBSTAFF"
 var BaseApiHubstaff = "BASE_API_HUBSTAFF"
+var BaseApiCattr = "BASE_API_CATTR"
 
 // ======================
 
