@@ -81,3 +81,9 @@ var TemplateMessageDailyScrum = "assets/template_scrum.json"
 var EventHoliday = "assets/event_holiday.json"
 
 // ======================
+
+// ======================
+var UsernameCattr = "USERNAME_CATTR"
+var PasswordCattr = "PASSWORD_CATTR"
+
+// ======================
