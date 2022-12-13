@@ -27,9 +27,11 @@ func StartDailyCattr(
 
 	// hit ke endpoint login cattr dan simpan access tokennya didalam cache
 	cattrRemoteDataSource := datasource.NewCattrRemoteDataSource(requestCattr)
+	usernameCattr := helper.LoadEnvVariable(configs.UsernameCattr)
+	passwordCattr := helper.LoadEnvVariable(configs.PasswordCattr)
 	loginBody := cattr.LoginBody{
-		Email:    "yudisetiawan@nusa.net.id",
-		Password: "*Nusanet123",
+		Email:    usernameCattr,
+		Password: passwordCattr,
 	}
 	loginResponse := cattrRemoteDataSource.Login(loginBody)
 	if (cattr.LoginResponse{}) == loginResponse {
@@ -130,14 +132,13 @@ func StartDailyCattr(
 	for _, itemReportTimeResponse := range reportTimeResponse.Data {
 		userIdCattr := fmt.Sprint(itemReportTimeResponse.User.Id)
 
-		totalTrackedInSeconds := itemReportTimeResponse.TimeInSeconds
-
 		// jika id discord-nya tidak valid
 		name, idDiscord := helper.GetNameAndIdDiscordByIdCattr(userIdCattr)
 		if idDiscord == "" {
 			continue
 		}
 
+		totalTrackedInSeconds := itemReportTimeResponse.TimeInSeconds
 		listMessages = append(listMessages, cattr.TemplateMessageCattr{
 			IdCattr:   userIdCattr,
 			IdDiscord: idDiscord,
