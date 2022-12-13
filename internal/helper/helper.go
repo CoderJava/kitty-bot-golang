@@ -3,7 +3,6 @@ package helper
 import (
 	"fmt"
 	"kitty-bot/cmd/domain/cattr"
-	"kitty-bot/cmd/domain/hubstaff"
 	"kitty-bot/configs"
 	"log"
 	"os"
@@ -121,20 +120,6 @@ func GetNameAndIdDiscordByIdCattr(idCattr string) (name string, idDiscord string
 	return
 }
 
-// TODO: Hapus function berikut ini jika semuanya telah diganti dengan cattr
-// Untuk mem-filter slice x yang terpenuhi berdasarkan kriteria parameter isFiltered
-func FilterTemplateMessageHubstaff(
-	x []hubstaff.TemplateMessageHubstaff,
-	isFiltered func(int) bool,
-) (resultFilter []hubstaff.TemplateMessageHubstaff) {
-	for index, element := range x {
-		if isFiltered(index) {
-			resultFilter = append(resultFilter, element)
-		}
-	}
-	return
-}
-
 // Untuk mem-filter slice x yang terpenuhi berdasarkan kriteria parameter isFiltered
 func FilterTemplateMessageCattr(
 	x []cattr.TemplateMessageCattr,
@@ -157,4 +142,56 @@ func SliceIndex(limit int, predicate func(int) bool) int {
 		}
 	}
 	return -1
+}
+
+// untuk menentukan periode hubstaff selama sebulan.
+// Intinya dari tgl 26-25.
+func GetPeriod(now time.Time, startDate *time.Time, stopDate *time.Time) {
+	if now.Month() == 1 {
+		// ambil ke tahun sebelumnya
+		// contoh: 26 Des 2022 - 25 Jan 2023
+		*startDate = time.Date(
+			now.Year()-1,
+			12,
+			26,
+			0,
+			0,
+			0,
+			0,
+			now.Location(),
+		)
+		*stopDate = time.Date(
+			now.Year(),
+			now.Month(),
+			25,
+			0,
+			0,
+			0,
+			0,
+			now.Location(),
+		)
+	} else {
+		// ambil pada tahun yang sama
+		// contoh: 26 Jan 2022 - 25 Feb 2022
+		*startDate = time.Date(
+			now.Year(),
+			now.Month()-1,
+			26,
+			0,
+			0,
+			0,
+			0,
+			now.Location(),
+		)
+		*stopDate = time.Date(
+			now.Year(),
+			now.Month(),
+			25,
+			0,
+			0,
+			0,
+			0,
+			now.Location(),
+		)
+	}
 }

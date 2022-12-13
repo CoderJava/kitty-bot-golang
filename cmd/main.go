@@ -34,9 +34,7 @@ func main() {
 		httpClientHubstaff.SetDebug(true)
 	}
 
-	requestHubstaffAuth := httpClientHubstaffAuth.R()
 	requestDiscord := httpClientDiscord.R()
-	requestHubstaff := httpClientHubstaff.R()
 	requestCattr := httpClientCattr.R()
 
 	// daily reminder scrum at weekday
@@ -64,11 +62,10 @@ func main() {
 		)
 	})
 
-	// monthly hubstaff at 10:30 on day of month 27
+	// monthly cattr at 10:30 on day of month 27
 	s.Cron("30 10 27 * *").Do(func() {
-		app.StartMonthlyHubstaff(
-			requestHubstaff,
-			requestHubstaffAuth,
+		app.StartMonthlyCattr(
+			requestCattr,
 			requestDiscord,
 			*cacheHelper,
 		)
